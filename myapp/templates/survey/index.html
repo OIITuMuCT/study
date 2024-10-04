@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}Страница опросов{% endblock title %}
+
+{% block content %}
+Создайте опрос
+<form method="post">
+    {{ form.as_p }}
+    {% csrf_token %}
+    <input type="text" placeholder="Создайте опрос">
+<ul>
+<li>
+    {{ question }}
+</li>
+{{ answer }}
+</li>
+</ul>
+{% for i in list_answer %}
+    <li> {{i}}  {{answer}}  </li>
+{% endfor %}
+
+</form>
+{% endblock %}
