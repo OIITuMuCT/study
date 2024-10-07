@@ -40,6 +40,26 @@ def book_list(request):
     }
     return render(request, 'myapp/book_list.html', context)
 
+def book_detail(request, pk):
+    book = get_object_or_404(Book, pk=pk)
+    reviews = book.review_set.all()
+    if reviews:
+        book_rating = average_rating([review.rating for review in reviews])
+        context = {
+            "book": book,
+            "book_rating": book_rating,
+            "reviews": reviews
+        }
+    else:
+        context = {
+            "book": book,
+            "book_rating": None,
+            "reviews": None
+        }
+    return render(request, 'myapp/book_detail.html', context)
+
+
+
 def survey(request):
     question = 'question 1'
     answer = 'answer 1'
