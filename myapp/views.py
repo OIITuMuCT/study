@@ -1,7 +1,8 @@
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import TemplateView
 from django.http import HttpResponse
-from .models import Book
+from .forms import SearchForm
+from .models import Book, Contributor
 from .utils import average_rating
 
 
@@ -9,10 +10,40 @@ def index(request):
     name = 'world'
     return render(request, 'base.html' , {'name': name})
 
+
 def book_search(request):
     search_text = request.GET.get("search", "")
-    return render(request, 'search-results.html',
-                  {'search_text': search_text})
+    form = SearchForm(request.GET)
+    books = set()
+
+    if form.is_valid() and form.cleaned_data["search"]:
+        search = form.cleaned_data["search"]
+        search_in = form.cleaned_data.get("search_in") or "title"
+        if search_in == "title":
+            books = Book.objects.filter(title__icontains=search)
+        else:
+            fname_contributors = Contributor.objects.filter(
+                first_names__icontains=search
+            )
+
+            for contributor in fname_contributors:
+                for book in contributor.book_set.all():
+                    books.add(book)
+
+            lname_contributors = Contributor.objects.filter(
+                last_names__icontains=search
+            )
+
+            for contributor in lname_contributors:
+                for book in contributor.book_set.all():
+                    books.add(book)
+
+    return render(
+        request,
+        "myapp/search-results.html",
+        {"form": form, "search_text": search_text, "books": books},
+    )
+
 
 class HomePage(TemplateView):
     template_name = 'home_page.html'
@@ -57,7 +88,6 @@ def book_detail(request, pk):
             "reviews": None
         }
     return render(request, 'myapp/book_detail.html', context)
-
 
 
 def survey(request):
