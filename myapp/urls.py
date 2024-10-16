@@ -9,4 +9,6 @@ urlpatterns = [
     path("polls/", views.survey, name="polls"),
     path("home-page/", views.HomePage.as_view(), name="home_page"),
     path("index/", views.index, name='index'),
+    path("publishers/<int:pk>", views.publisher_edit, name="publisher_edit"),
+    path("publishers/new/", views.publisher_edit, name="publisher_create"),
 ]
