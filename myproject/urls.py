@@ -19,6 +19,8 @@ from django.contrib import admin
 from django.urls import path, include
 from myapp.admin import admin_site
 import myapp.views
+from django.conf import settings
+from django.conf.urls.static import static
 
 
 urlpatterns = [
@@ -27,3 +29,7 @@ urlpatterns = [
     path("book-search/", myapp.views.book_search, name="book_search"),
     path("", include("myapp.urls")),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL,
+    document_root=settings.MEDIA_ROOT)
