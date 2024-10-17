@@ -2,9 +2,10 @@ from django.shortcuts import render, get_object_or_404,redirect
 from django.views.generic import TemplateView
 from django.http import HttpResponse
 from django.contrib import messages
-from .forms import PublisherForm, SearchForm
-from .models import Book, Contributor, Publisher
+from .forms import PublisherForm, SearchForm, ReviewForm
+from .models import Book, Contributor, Publisher, Review
 from .utils import average_rating
+from django.utils import timezone
 
 
 
@@ -108,6 +109,43 @@ def publisher_edit(request, pk=None):
     else:
         form = PublisherForm(instance=publisher)
     return render(request, "myapp/instance-form.html", {"method": request.method, "form": form})
+
+def review_edit(request, book_pk, review_pk=None):
+    book = get_object_or_404(Book, pk=book_pk)
+    if review_pk is not None:
+        review = get_object_or_404(Review, book_id=book_pk, pk=review_pk)
+    else:
+        review = None
+
+    if request.method == "POST":
+        form = ReviewForm(request.POST, instance=review)
+        if form.is_valid():
+            updated_review = form.save(False)
+            updated_review.book = book
+            
+            if review is None:
+                messages.success(request, 'Review for "{}" created'.format(book))
+            else:
+                updated_review.date_edited = timezone.now()
+                messages.success(request, 'Review for "{}" updated.'.format(book))
+                
+            updated_review.save()
+            return redirect("book_detail", book.pk)
+    else:
+        form = ReviewForm(instance=review)
+    
+    return render(request,
+                  "myapp/instance-form.html",
+                {
+                    "form": form,
+                    "instance": review,
+                    "model_type": "Review",
+                    "related_instance": book,
+                    "related_model_type": "Book",
+                },
+            )
+
+
 def survey(request):
     question = 'question 1'
     answer = 'answer 1'
