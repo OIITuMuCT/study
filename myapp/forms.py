@@ -1,5 +1,4 @@
 from django import forms
-from django.core.exceptions import ValidationError
 from .models import Publisher, Review
 
 
@@ -20,6 +19,7 @@ class PublisherForm(forms.ModelForm):
     class Meta:
         model = Publisher
         fields = "__all__"
+
 
 class ReviewForm(forms.ModelForm):
     class Meta:
