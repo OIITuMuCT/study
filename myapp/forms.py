@@ -32,5 +32,5 @@ class ReviewForm(forms.ModelForm):
 class BookMediaForm(forms.ModelForm):
     class Meta:
         model = Book
-        fields = ["image_field", "file_field"]
+        fields = ["cover", "sample"]
         

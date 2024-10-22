@@ -17,4 +17,6 @@ urlpatterns = [
         views.review_edit,
         name="review_edit",
     ),
+    path("book/<int:pk>/media/", views.book_media, name="book_media"),
+    
 ]
