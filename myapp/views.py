@@ -7,8 +7,8 @@ from django.contrib import messages
 from django.utils import timezone
 from PIL import Image
 from django.core.files.images import ImageFile
-from django.contrib.auth.decorators import login_required
-
+from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib.auth.models import User
 from .forms import PublisherForm, SearchForm, ReviewForm, BookMediaForm
 from .models import Book, Contributor, Publisher, Review
 from .utils import average_rating
@@ -185,6 +185,13 @@ def book_media(request, pk):
 @login_required
 def profile(request):
     return render(request, "profile.html")
+
+@permission_required('view_group')
+def user_profile(request, uid):
+    user = get_object_or_404(User, id=uid)
+    permissions = user.get_all_permissions()
+    return render(request, 'user_profile.html',
+        {'user': user, "permissions": permissions})
 
 def survey(request):
     question = 'question 1'
