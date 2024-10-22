@@ -7,11 +7,13 @@ from django.contrib import messages
 from django.utils import timezone
 from PIL import Image
 from django.core.files.images import ImageFile
+
 from django.contrib.auth.decorators import login_required, permission_required, user_passes_test
 from django.contrib.auth.models import User
 from .forms import PublisherForm, SearchForm, ReviewForm, BookMediaForm
 from .models import Book, Contributor, Publisher, Review
 from .utils import average_rating
+from django.core.exceptions import PermissionDenied
 
 
 def index(request):
@@ -97,6 +99,12 @@ def book_detail(request, pk):
         }
     return render(request, 'myapp/book_detail.html', context)
 
+
+def is_staff_user(user):
+    return user.is_staff
+
+# @permission_required('edit_publisher')
+@user_passes_test(is_staff_user)
 def publisher_edit(request, pk=None):
     if pk is not None:
         publisher = get_object_or_404(Publisher, pk=pk)
@@ -115,10 +123,15 @@ def publisher_edit(request, pk=None):
         form = PublisherForm(instance=publisher)
     return render(request, "myapp/instance-form.html", {"method": request.method, "form": form})
 
+@login_required
 def review_edit(request, book_pk, review_pk=None):
     book = get_object_or_404(Book, pk=book_pk)
     if review_pk is not None:
         review = get_object_or_404(Review, book_id=book_pk, pk=review_pk)
+        
+        user = request.user
+        if not user.is_staff and review.creator.id != user.id:
+            raise PermissionDenied
     else:
         review = None
 
@@ -151,6 +164,7 @@ def review_edit(request, book_pk, review_pk=None):
             )
 
 
+@login_required
 def book_media(request, pk):
     book = get_object_or_404(Book, pk=pk)
     
@@ -186,27 +200,28 @@ def book_media(request, pk):
 def profile(request):
     return render(request, "profile.html")
 
-@permission_required('view_group')
-def user_profile(request, uid):
-    user = get_object_or_404(User, id=uid)
-    permissions = user.get_all_permissions()
-    return render(request, 'user_profile.html',
-        {'user': user, "permissions": permissions})
 
-def veteran_user(user):
-    now = datetime.datetime.now()
-    if user.date_joined is None:
-        return False
-    return now - user.date_joined > datetime.timedelta(days=365)
+# @permission_required('view_group')
+# def user_profile(request, uid):
+#     user = get_object_or_404(User, id=uid)
+#     permissions = user.get_all_permissions()
+#     return render(request, 'user_profile.html',
+#         {'user': user, "permissions": permissions})
+
+# def veteran_user(user):
+#     now = datetime.datetime.now()
+#     if user.date_joined is None:
+#         return False
+#     return now - user.date_joined > datetime.timedelta(days=365)
 
 
-@user_passes_test
-def veteran_futures(request):
-    user = request.user
-    permissions = user.get_all_permissions()
-    return render(request, "veteran_profile.html", {'user': user, 'permissions':permissions})
+# @user_passes_test
+# def veteran_futures(request):
+#     user = request.user
+#     permissions = user.get_all_permissions()
+#     return render(request, "veteran_profile.html", {'user': user, 'permissions':permissions})
 
-    # redirect_to_login(next, login_url=None, redirect_field_name="next")
+# redirect_to_login(next, login_url=None, redirect_field_name="next")
 
 def survey(request):
     question = 'question 1'

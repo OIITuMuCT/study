@@ -4,7 +4,11 @@
 
 {% block content %}
 <h2>Profile</h2>
+{% if user.is_staff %}
+<p><a href="{% url "review:edit" %}">Edit this Review</a></p>
+{% endif %}
 <div>
+
     <p>
         Username: {{ request.user.username }} <br>
         Name: {{request.user.first_name}} {{ request.user.last_name }}<br>
