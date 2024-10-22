@@ -1,5 +1,5 @@
 from io import BytesIO
-
+import datetime
 from django.shortcuts import render, get_object_or_404,redirect
 from django.views.generic import TemplateView
 from django.http import HttpResponse
@@ -7,7 +7,7 @@ from django.contrib import messages
 from django.utils import timezone
 from PIL import Image
 from django.core.files.images import ImageFile
-from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib.auth.decorators import login_required, permission_required, user_passes_test
 from django.contrib.auth.models import User
 from .forms import PublisherForm, SearchForm, ReviewForm, BookMediaForm
 from .models import Book, Contributor, Publisher, Review
@@ -192,6 +192,21 @@ def user_profile(request, uid):
     permissions = user.get_all_permissions()
     return render(request, 'user_profile.html',
         {'user': user, "permissions": permissions})
+
+def veteran_user(user):
+    now = datetime.datetime.now()
+    if user.date_joined is None:
+        return False
+    return now - user.date_joined > datetime.timedelta(days=365)
+
+
+@user_passes_test
+def veteran_futures(request):
+    user = request.user
+    permissions = user.get_all_permissions()
+    return render(request, "veteran_profile.html", {'user': user, 'permissions':permissions})
+
+    # redirect_to_login(next, login_url=None, redirect_field_name="next")
 
 def survey(request):
     question = 'question 1'
