@@ -146,6 +146,9 @@ def review_edit(request, book_pk, review_pk=None):
             )
 
 
+def book_view(request, pk):
+    return render(request, "instance-form.html")
+
 def survey(request):
     question = 'question 1'
     answer = 'answer 1'
