@@ -7,6 +7,7 @@ from django.contrib import messages
 from django.utils import timezone
 from PIL import Image
 from django.core.files.images import ImageFile
+from django.contrib.auth.decorators import login_required
 
 from .forms import PublisherForm, SearchForm, ReviewForm, BookMediaForm
 from .models import Book, Contributor, Publisher, Review
@@ -180,7 +181,11 @@ def book_media(request, pk):
         "myapp/instance-form.html", 
         {"instance": book, "form": form, "model_type": "Book", "is_file_upload": True},
     )
-    
+
+@login_required
+def profile(request):
+    return render(request, "profile.html")
+
 def survey(request):
     question = 'question 1'
     answer = 'answer 1'
