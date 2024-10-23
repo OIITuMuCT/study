@@ -21,11 +21,12 @@ from myapp.admin import admin_site
 import myapp.views
 from django.conf import settings
 from django.conf.urls.static import static
-
+from bookr_admin.admin import admin_site
 
 urlpatterns = [
     path("bookradmin/", admin_site.urls),
-    path("admin/", admin.site.urls),
+    path("admin/", admin_site.urls),
+    # path("admin/", admin.site.urls),
     path(
         "accounts/", include(("django.contrib.auth.urls", "auth"), namespace="accounts")
     ),
