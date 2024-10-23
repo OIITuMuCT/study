@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Tag Template Example</title>
+</head>
+<body>
+    {% load simple_tag  inclusion_tag %}
+    <p>
+        {% greet_user "Hey" username %}
+    </p>
+    <br>
+    <p>
+        {% contextual_greet_user "Hey" %}
+    </p>
+    <br>
+    <span class="message">You have read the following 
+        book till date</span>
+    {% book_list books%}
+</body>
+</html>

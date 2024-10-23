@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "reviews",
+    "filter_demo",
     # "myapp.apps.MyappConfig",
     "bookr_admin.apps.BookrAdminConfig",
 ]
