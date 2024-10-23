@@ -1,7 +1,8 @@
-"""bookr URL Configuration
+"""
+URL configuration for myproject project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/4.0/topics/http/urls/
+    https://docs.djangoproject.com/en/5.1/topics/http/urls/
 Examples:
 Function views
     1. Add an import:  from my_app import views
@@ -14,16 +15,18 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 
+from django.contrib import admin, auth
+from django.urls import path, include
+from myapp.admin import admin_site
+import myapp.views
 from django.conf import settings
 from django.conf.urls.static import static
-from django.contrib import admin, auth
-from django.urls import include, path
-
-from myproject.views import profile
-import reviews.views
+from bookr_admin.admin import admin_site
 
 urlpatterns = [
+    path("bookradmin/", admin_site.urls),
     path("admin/", admin.site.urls),
+    # path("admin/", admin.site.urls),
     path(
         "accounts/", include(("django.contrib.auth.urls", "auth"), namespace="accounts")
     ),
@@ -33,15 +36,16 @@ urlpatterns = [
         name="password_reset_done",
     ),
     path(
-        "accounts/reset/done/",
+        "accounts/reset/done/", 
         auth.views.PasswordResetCompleteView.as_view(),
-        name="password_reset_complete",
+        name="password_reset_complete"
     ),
-    path("accounts/profile/", profile, name="profile"),
-    path("", reviews.views.index),
-    path("book-search/", reviews.views.book_search, name="book_search"),
-    path("", include("reviews.urls")),
+    path("accounts/profile/", myapp.views.profile, name='profile'),
+    path("book-search/", myapp.views.book_search, name="book_search"),
+    path("", include("myapp.urls")),
+
 ]
 
 if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(settings.MEDIA_URL,
+    document_root=settings.MEDIA_ROOT)
