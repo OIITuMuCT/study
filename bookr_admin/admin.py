@@ -23,4 +23,3 @@ class BookrAdmin(admin.AdminSite):
 
 admin_site = BookrAdmin(name='bookr_admin')
 admin_site.register(User)
-
