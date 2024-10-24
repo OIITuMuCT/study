@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Book Record</title>
+</head>
+<body>
+    <p>Delete Book Record</p>
+    <form method="POST">
+        {% csrf_token %}
+        Do you want to delete the book record Book: 
+        <strong>"{{ object.name}}"</strong> Author: <strong> "{{object.author }}"</strong>?
+        <input type="submit" value="Delete record" />
+    </form>
+</body>
+</html>
