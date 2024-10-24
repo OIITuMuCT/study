@@ -31,17 +31,19 @@ ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 # Application definition
 
 INSTALLED_APPS = [
+    "bookr_admin.apps.BookrAdminConfig",
     "reviews.adminconfig.ReviewsAdminConfig",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "rest_framework",
     "reviews",
     "filter_demo",
     "book_management",
+    
     # "myapp.apps.MyappConfig",
-    "bookr_admin.apps.BookrAdminConfig",
 ]
 
 MIDDLEWARE = [
