@@ -1,6 +1,10 @@
+from django.contrib.auth.models import User
+from django.utils import timezone
 from rest_framework import serializers
+from rest_framework.exceptions import NotAuthenticated, PermissionDenied
 
-from .models import Book, Publisher, Contributor, BookContributor
+from .models import Book, Publisher, Contributor, BookContributor, Review
+from .utils import average_rating
 
 # Version view ModelSerializer
 class PublisherSerializer(serializers.ModelSerializer):
@@ -26,6 +30,13 @@ class ContributorSerializer(serializers.ModelSerializer):
         model = Contributor
         fields = ['first_names', 'last_names', 'email']
 
+
+class ReviewSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Review
+        fields = ['content', 'rating', 'date_created', 'creator']
+
+
 # Version view Serializer
 # class PublisherSerializer(serializers.Serializer):
 #     name = serializers.CharField()
@@ -38,3 +49,8 @@ class ContributorSerializer(serializers.ModelSerializer):
 #     publication_date = serializers.DateField()
 #     isbn = serializers.CharField()
 #     publisher = PublisherSerializer()
+
+# ? разобраться с этим 
+# class UserViewSet(viewsets.ModelViewSet):
+#     serializers_class = UserSerializer
+#     queryset = User

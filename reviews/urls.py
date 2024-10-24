@@ -1,8 +1,13 @@
-from django.urls import path
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
 
 from . import views , api_views
+router = DefaultRouter()
+router.register(r'books', api_views.BookViewSet)
+router.register(r'reviews', api_views.ReviewViewSet)
 
 urlpatterns = [
+    path('api/', include((router.urls, 'api'))),
     path("api/all_books/", api_views.all_books, name="all_books"),
     path('api/class_all_books/', api_views.AllBooks.as_view(), name="class_all_books"),
     path('api/contributor_view/', api_views.ContributorView.as_view(), name="contributor_view"),
