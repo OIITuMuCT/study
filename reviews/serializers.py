@@ -11,3 +11,4 @@ class BookSerializer(serializers.Serializer):
     publication_date = serializers.DateField()
     isbn = serializers.CharField()
     publisher = PublisherSerializer()
+    contributors = serializers.CharField()
