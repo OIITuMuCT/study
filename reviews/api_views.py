@@ -41,8 +41,8 @@ class ContributorView(generics.ListAPIView):
 class BookViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
-    authentication_classes = [TokenAuthentication]
-    permission_classes = [IsAuthenticated]
+    authentication_classes = []
+    permission_classes = []
 
 class ReviewViewSet(viewsets.ModelViewSet):
     queryset = Review.objects.order_by('-date_created')
