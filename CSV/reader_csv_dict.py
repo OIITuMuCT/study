@@ -1,7 +1,6 @@
-
 import csv
 
-def read_cvs(filename):
+def read_csv(filename):
     """ Read and output the details of CSV file. """
     try:
         with open(filename, newline='') as csv_file:
@@ -11,4 +10,8 @@ def read_cvs(filename):
     except (IOError, OSError) as file_read_error:
         print("Unable to open the csv file. Exeption: {}".format(file_read_error))
 
+
+if __name__ == "__main__":
+    read_csv("market_cap.csv")
+    read_csv('test_output.csv')
 
