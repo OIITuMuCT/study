@@ -23,6 +23,17 @@ if __name__ == '__main__':
     header = [
         "name", "age", "gender"
     ]
+
     data = [['Richard', 32, 'M'], ['Mumzul', 21, 'F'], ['Melinda', 25, 'F']]
-    filename = 'simple_output.csv'
+    i = int(input("Введите число записей для добавления в таблицу: "))
+    while i != 0:
+        data += [
+            [
+                input("Name: "),
+                input("Age: "),
+                input("Sex: "),
+            ]
+        ]
+        i -= 1
+    filename = 'test_output_2.csv'
     write_csv(filename, header, data)
