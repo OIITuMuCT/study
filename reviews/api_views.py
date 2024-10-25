@@ -14,6 +14,14 @@ from rest_framework.pagination import (
 from .models import Book, Contributor, Review
 from .serializers import BookSerializer, ContributorSerializer, ReviewSerializer
 
+class Login(APIView):
+    def post(self, request):
+        user = authenticate(username=request.data.get("username"), password=request.data.get("password"))
+        if not user:
+            return Response({'error': 'Credentials are incorrect or user does not exist'}, status=HTTP_404_NOT_FOUND)
+        token, _ = Token.objects.get_or_create(user=user)
+        return Response({'token': token.key}, status=HTTP_200_OK)
+
 @api_view()
 def all_books(request):
     books = Book.objects.all()

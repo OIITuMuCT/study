@@ -34,7 +34,7 @@ class ContributorSerializer(serializers.ModelSerializer):
 class ReviewSerializer(serializers.ModelSerializer):
     class Meta:
         model = Review
-        fields = ['content', 'rating', 'date_created', 'creator']
+        fields = ['book','content', 'rating', 'date_created', 'creator', ]
 
 
 # Version view Serializer

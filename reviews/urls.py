@@ -7,11 +7,15 @@ router.register(r'books', api_views.BookViewSet)
 router.register(r'reviews', api_views.ReviewViewSet)
 
 urlpatterns = [
-    path('api/login', api_views.login.as_views(), name="login"),
-    path('api/', include((router.urls, 'api'))),
+    path("api/login", api_views.Login.as_view(), name="login"),
+    path("api/", include((router.urls, "api"))),
     path("api/all_books/", api_views.all_books, name="all_books"),
-    path('api/class_all_books/', api_views.AllBooks.as_view(), name="class_all_books"),
-    path('api/contributor_view/', api_views.ContributorView.as_view(), name="contributor_view"),
+    path("api/class_all_books/", api_views.AllBooks.as_view(), name="class_all_books"),
+    path(
+        "api/contributor_view/",
+        api_views.ContributorView.as_view(),
+        name="contributor_view",
+    ),
     path("books/", views.book_list, name="book_list"),
     path("books/<int:pk>/", views.book_detail, name="book_detail"),
     path("publishers/<int:pk>/", views.publisher_edit, name="publisher_edit"),
