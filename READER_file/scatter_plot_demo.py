@@ -8,3 +8,11 @@ def generate_scatter_plot(x_axis, y_axis):
     figure.add_trace(scatter)
     return plot(figure, output_type='div')
 
+def generete_html(plot_html):
+    """ Generate an HTML page for the provide plot. """
+    html_content = "<html><head><title>Plot Demo </title></head><body>{}</body>".format(plot_html)
+    try:
+        with open('plot_demo.html', 'w') as plot_file:
+            plot_file.write(html_content)
+    except (IOError, OSError) as file_io_error:
+        print('Unable to generate plot file. Exeption: {}'.format(file_io_error))
