@@ -16,3 +16,10 @@ def generete_html(plot_html):
             plot_file.write(html_content)
     except (IOError, OSError) as file_io_error:
         print('Unable to generate plot file. Exeption: {}'.format(file_io_error))
+
+
+if __name__ == '__main__':
+    x = [1,2,3,4,5]
+    y = [3,8,7,9,2]
+    plot_html = generate_scatter_plot(x, y)
+    generete_html(plot_html)
