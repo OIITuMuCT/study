@@ -11,13 +11,13 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 from pathlib import Path
-from configurations import Configuration
+from configurations import Configuration, values
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 class Dev(Configuration):
     BASE_DIR = Path(__file__).resolve().parent.parent
     SECRET_KEY = "django-insecure-c!ed4dqj0ous$i*%zf&xxf*skpgkey6%$ld-pz6s^_k6w#eo7&"
-    DEBUG = True
+    DEBUG = values.BooleanValue(True)
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
@@ -27,7 +27,7 @@ class Dev(Configuration):
 # SECURITY WARNING: don't run with debug turned on in production!
 
 
-    ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+    ALLOWED_HOSTS = values.ListValue([])
 
 
 # Application definition
@@ -140,4 +140,5 @@ class Dev(Configuration):
 
 class Prod(Dev):
     DEBUG = False
+    SECRET_KEY = values.SecretValue()
     # no other settings defined since we're only overriding DEBUG
