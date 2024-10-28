@@ -18,19 +18,16 @@ class Dev(Configuration):
     BASE_DIR = Path(__file__).resolve().parent.parent
     SECRET_KEY = "django-insecure-c!ed4dqj0ous$i*%zf&xxf*skpgkey6%$ld-pz6s^_k6w#eo7&"
     DEBUG = values.BooleanValue(True)
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
+    # Quick-start development settings - unsuitable for production
+    # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
+    # SECURITY WARNING: keep the secret key used in production secret!
 
-
-# SECURITY WARNING: don't run with debug turned on in production!
-
+    # SECURITY WARNING: don't run with debug turned on in production!
 
     ALLOWED_HOSTS = values.ListValue([])
 
-
-# Application definition
+    # Application definition
 
     INSTALLED_APPS = [
         "bookr_admin.apps.BookrAdminConfig",
@@ -47,6 +44,7 @@ class Dev(Configuration):
         "book_management",
         "bookr_test",
         'debug_toolbar',
+        "crispy_forms",
     
     # "myapp.apps.MyappConfig",
     ]
@@ -83,9 +81,8 @@ class Dev(Configuration):
 
     WSGI_APPLICATION = "myproject.wsgi.application"
 
-
-# Database
-# https://docs.djangoproject.com/en/4.0/ref/settings/#databases
+    # Database
+    # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
     # DATABASES = {
     #     "default": {
@@ -96,8 +93,8 @@ class Dev(Configuration):
     DATABASES = values.DatabaseURLValue(
         f'sqlite:///{BASE_DIR}/db.sqlite3', environ_prefix='DJANGO'
     )
-# Password validation
-# https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
+    # Password validation
+    # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
 
     AUTH_PASSWORD_VALIDATORS = [
         {
@@ -114,9 +111,8 @@ class Dev(Configuration):
         },
     ]
 
-
-# Internationalization
-# https://docs.djangoproject.com/en/4.0/topics/i18n/
+    # Internationalization
+    # https://docs.djangoproject.com/en/4.0/topics/i18n/
 
     LANGUAGE_CODE = "en-us"
 
@@ -126,9 +122,8 @@ class Dev(Configuration):
 
     USE_TZ = True
 
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/4.0/howto/static-files/
+    # Static files (CSS, JavaScript, Images)
+    # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
     STATIC_URL = "static/"
 
@@ -141,6 +136,8 @@ class Dev(Configuration):
 
     MEDIA_ROOT = BASE_DIR / "media"
     MEDIA_URL = "/media/"
+
+    CRISPY_TEMPLATE_PACK = "bootstrap4"
 
 class Prod(Dev):
     DEBUG = False

@@ -1,5 +1,6 @@
 from django import forms
-
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Submit
 from .models import Publisher, Review, Book
 
 
@@ -8,6 +9,11 @@ class SearchForm(forms.Form):
     search_in = forms.ChoiceField(
         required=False, choices=(("title", "Title"), ("contributor", "Contributor"))
     )
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_method = "get"
+        self.helper.add_input(Submit('', "Search"))
 
 
 class PublisherForm(forms.ModelForm):
