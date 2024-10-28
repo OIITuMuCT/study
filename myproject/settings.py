@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 from pathlib import Path
 from configurations import Configuration, values
-
+import dj_database_url
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 class Dev(Configuration):
     BASE_DIR = Path(__file__).resolve().parent.parent
@@ -84,14 +84,15 @@ class Dev(Configuration):
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-    DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.sqlite3",
-            "NAME": BASE_DIR / "db.sqlite3",
-        }
-    }
-
-
+    # DATABASES = {
+    #     "default": {
+    #         "ENGINE": "django.db.backends.sqlite3",
+    #         "NAME": BASE_DIR / "db.sqlite3",
+    #     }
+    # }
+    DATABASES = values.DatabaseURLValue(
+        f'sqlite:///{BASE_DIR}/db.sqlite3', environ_prefix='DJANGO'
+    )
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
 
