@@ -1,6 +1,6 @@
-import unittest
-from django.test import TestCase
+# import unittest
+# from django.test import TestCase
 
-class TestSimpleComponent(TestCase):
-    def test_basic_sum(self):
-        assert 1+1 == 2
+# class TestSimpleComponent(TestCase):
+#     def test_basic_sum(self):
+#         assert 1+1 == 2
