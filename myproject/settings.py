@@ -46,9 +46,11 @@ class Dev(Configuration):
         "filter_demo",
         "book_management",
         "bookr_test",
+        'debug_toolbar',
     
     # "myapp.apps.MyappConfig",
     ]
+    INTERNAL_IPS = ['127.0.0.1']
 
     MIDDLEWARE = [
         "django.middleware.security.SecurityMiddleware",
@@ -58,6 +60,7 @@ class Dev(Configuration):
         "django.contrib.auth.middleware.AuthenticationMiddleware",
         "django.contrib.messages.middleware.MessageMiddleware",
         "django.middleware.clickjacking.XFrameOptionsMiddleware",
+        "debug_toolbar.middleware.DebugToolbarMiddleware",
     ]
 
     ROOT_URLCONF = "myproject.urls"

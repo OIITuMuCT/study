@@ -44,6 +44,7 @@ urlpatterns = [
     path('filter_demo/', include("filter_demo.urls")),
     path('', include('bookr_test.urls')),
     # path('book_management/', include('book_management.urls'))
+    path('__debug__/', include('debug_toolbar.urls')),
 ]
 
 if settings.DEBUG:
