@@ -49,7 +49,7 @@ class Dev(Configuration):
         "crispy_bootstrap4",
         "allauth",
         "allauth.socialaccount",
-        # "allauth.socialaccount.providers.github",
+        "allauth.socialaccount.providers.github",
         # "myapp.apps.MyappConfig",
     ]
     INTERNAL_IPS = ['127.0.0.1']
