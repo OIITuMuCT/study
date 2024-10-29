@@ -31,6 +31,7 @@ class Dev(Configuration):
 
     INSTALLED_APPS = [
         "bookr_admin.apps.BookrAdminConfig",
+        "django.contrib.sites",
         "reviews.adminconfig.ReviewsAdminConfig",
         "django.contrib.auth",
         "django.contrib.contenttypes",
@@ -46,9 +47,14 @@ class Dev(Configuration):
         "debug_toolbar",
         "crispy_forms",
         "crispy_bootstrap4",
+        "allauth",
+        "allauth.socialaccount",
+        # "allauth.socialaccount.providers.github",
         # "myapp.apps.MyappConfig",
     ]
     INTERNAL_IPS = ['127.0.0.1']
+
+    SITE_ID = 1
 
     MIDDLEWARE = [
         "django.middleware.security.SecurityMiddleware",
