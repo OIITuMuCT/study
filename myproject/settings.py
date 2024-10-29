@@ -43,10 +43,10 @@ class Dev(Configuration):
         "filter_demo",
         "book_management",
         "bookr_test",
-        'debug_toolbar',
+        "debug_toolbar",
         "crispy_forms",
-    
-    # "myapp.apps.MyappConfig",
+        "crispy_bootstrap4",
+        # "myapp.apps.MyappConfig",
     ]
     INTERNAL_IPS = ['127.0.0.1']
 
@@ -136,6 +136,8 @@ class Dev(Configuration):
 
     MEDIA_ROOT = BASE_DIR / "media"
     MEDIA_URL = "/media/"
+
+    CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap4"
 
     CRISPY_TEMPLATE_PACK = "bootstrap4"
 
