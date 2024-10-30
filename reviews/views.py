@@ -222,3 +222,7 @@ def book_media(request, pk):
         "reviews/instance-form.html",
         {"instance": book, "form": form, "model_type": "Book", "is_file_upload": True},
     )
+
+
+def react_example(request):
+    return render(request, 'react-example.html', {"name": "Ben", "target": 5})

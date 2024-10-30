@@ -27,4 +27,6 @@ urlpatterns = [
         name="review_edit",
     ),
     path("books/<int:pk>/media/", views.book_media, name="book_media"),
+    path('react-example', views.react_example, name="react-example"),
+    
 ]
